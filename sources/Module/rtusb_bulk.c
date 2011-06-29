@@ -527,7 +527,7 @@ VOID	RTUSBInitTxDesc(
 						pSrc,
 						pTxContext->BulkOutSize,
 						Func,
-						pTxContext);
+			                        pTxContext);
 		
 }
 
@@ -546,8 +546,8 @@ VOID	RTUSBInitRxDesc(
 						usb_rcvbulkpipe(pAd->pUsb_Dev, 1),
 						pRxContext->TransferBuffer,
 						BUFFER_SIZE,
-						RTUSBBulkRxComplete,
-						pRxContext);
+			    (usb_complete_t) RTUSBBulkRxComplete,
+			                        pRxContext);
 }
 
 /*
@@ -646,7 +646,7 @@ VOID	RTUSBBulkOutDataPacket(
 	
 
 	// Init Tx context descriptor
-	RTUSBInitTxDesc(pAd, pTxContext, BulkOutPipeId, RTUSBBulkOutDataPacketComplete);
+	RTUSBInitTxDesc(pAd, pTxContext, BulkOutPipeId, (usb_complete_t)RTUSBBulkOutDataPacketComplete);
 
 	
 	pTxContext->IRPPending = TRUE;
@@ -702,7 +702,7 @@ VOID	RTUSBBulkOutNullFrame(
 
 
 	// Init Tx context descriptor
-	RTUSBInitTxDesc(pAd, pNullContext, 0, RTUSBBulkOutNullFrameComplete);
+	RTUSBInitTxDesc(pAd, pNullContext, 0,(usb_complete_t) RTUSBBulkOutNullFrameComplete);
 	pNullContext->IRPPending = TRUE;
 
 	pUrb = pNullContext->pUrb;
@@ -766,7 +766,7 @@ VOID	RTUSBBulkOutRTSFrame(
 	RTUSB_CLEAR_BULK_FLAG(pAd, fRTUSB_BULK_OUT_RTS);
 
 	// Init Tx context descriptor
-	RTUSBInitTxDesc(pAd, pRTSContext, PipeID, RTUSBBulkOutRTSFrameComplete);
+	RTUSBInitTxDesc(pAd, pRTSContext, PipeID,(usb_complete_t) RTUSBBulkOutRTSFrameComplete);
 	pRTSContext->IRPPending = TRUE;
 	
 	pUrb = pRTSContext->pUrb;
@@ -827,7 +827,7 @@ VOID	RTUSBBulkOutMLMEPacket(
 
 
 	// Init Tx context descriptor
-	RTUSBInitTxDesc(pAd, pMLMEContext, 0, RTUSBBulkOutMLMEPacketComplete);
+	RTUSBInitTxDesc(pAd, pMLMEContext, 0, (usb_complete_t)RTUSBBulkOutMLMEPacketComplete);
 	pMLMEContext->IRPPending = TRUE;
 
 
@@ -879,7 +879,7 @@ VOID	RTUSBBulkOutPsPoll(
 
 
 	// Init Tx context descriptor
-	RTUSBInitTxDesc(pAd, pPsPollContext, 0, RTUSBBulkOutPsPollComplete);
+	RTUSBInitTxDesc(pAd, pPsPollContext, 0, (usb_complete_t)RTUSBBulkOutPsPollComplete);
 	pPsPollContext->IRPPending = TRUE;
 	
 	pUrb = pPsPollContext->pUrb;

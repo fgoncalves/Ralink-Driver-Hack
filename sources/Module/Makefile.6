@@ -23,8 +23,8 @@ CC := /tscrosstool/ts7800-crosstool-linux-gnueabi-2005q3-2-gcc3.4.4/arm-none-lin
 endif
 
 ifeq ($(TS),7500)
-KERNEL_SOURCE = /home/workspace/plaquinhas/kernel/linux-2.6.24-cavium
-CC := /home/workspace/plaquinhas/kernel/arm-uclibc-3.4.6/bin/arm-linux-gcc
+KERNEL_SOURCE = /lib/modules/2.6.24.4/build
+CC := $(CROSS_COMPILE)gcc
 endif
 
 ifeq ($(TS),7400-26)

@@ -2378,7 +2378,7 @@ INT RTMPSetInformation(
 					// reset SSID to null
 					if (pSsid->SsidLength == 0)
 					{
-						memcpy(pSsid->Ssid, "", 0);
+					  memset(pSsid->Ssid, 0, NDIS_802_11_LENGTH_SSID);
 					}
 
 					RTUSBEnqueueCmdFromNdis(pAdapter, OID_802_11_SSID, TRUE, pSsid, sizeof(NDIS_802_11_SSID));
@@ -3687,7 +3687,7 @@ INT rt73_ioctl(
 			else
 			{	
 				Ssid.SsidLength = 0;  // ANY ssid 
-				memcpy(pSsid->Ssid, "", 0);	    
+				memset(Ssid.Ssid, 0, NDIS_802_11_LENGTH_SSID);	    
 			}
 			pSsid = &Ssid;
 			if (pAd->Mlme.CntlMachine.CurrState != CNTL_IDLE)
@@ -4885,7 +4885,7 @@ INT Set_SSID_Proc(
 		else
 		{
 			Ssid.SsidLength = 0; //ANY ssid
-            memcpy(Ssid.Ssid, "", 0);	    
+			memset(Ssid.Ssid, 0, NDIS_802_11_LENGTH_SSID);
 		}
 		
 		pSsid = &Ssid;

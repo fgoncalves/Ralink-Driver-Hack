@@ -856,10 +856,6 @@ VOID STAMlmePeriodicExec(
         // fast roaming
         if (pAd->PortCfg.bFastRoaming)
         {
-            // Check the RSSI value, we should begin the roaming attempt
-            INT RxSignal = pAd->PortCfg.LastRssi - pAd->BbpRssiToDbmDelta;
-
-            DBGPRINT(RT_DEBUG_TRACE, "RxSignal %d\n", RxSignal);
             // Only perform action when signal is less than or equal to setting from the UI or registry
             if (pAd->PortCfg.LastRssi <= (pAd->BbpRssiToDbmDelta - pAd->PortCfg.dBmToRoam))
             {

@@ -108,7 +108,7 @@
 
 
 #ifndef ULONG
-#define CHAR            char
+#define CHAR            signed char
 #define INT             int
 #define SHORT           int
 #define UINT            u32
